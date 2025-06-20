@@ -74,7 +74,7 @@ This project is an intelligent document summarization pipeline built with **Azur
 
 ---
 
-## 🥺 How to Test
+## How to Test
 
 1. Upload a PDF file to the `input` container in your Azure Blob Storage account.
 2. Trigger will invoke the orchestration function and process the document.
