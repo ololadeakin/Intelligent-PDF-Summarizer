@@ -1,0 +1,13 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+      "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+      "AzureWebJobsFeatureFlags": "EnableWorkerIndexing",
+      "FUNCTIONS_WORKER_RUNTIME": "python",
+      "BLOB_STORAGE_ENDPOINT": "DefaultEndpointsProtocol=https;AccountName=storagedurable8921;AccountKey=Gl2koLNntgu8OkTi8xrSSF/AI4egBhzsvYE4efizP4Mp7tLuCHk9yIcBSoZkRkYGDhDE8HqGut9Q+ASt4VSCJw==;EndpointSuffix=core.windows.net",
+      "COGNITIVE_SERVICES_ENDPOINT": "https://document8921.cognitiveservices.azure.com/",
+      "AZURE_OPENAI_ENDPOINT": "https://akin0-mc3y3v5d-swedencentral.cognitiveservices.azure.com",
+      "AZURE_OPENAI_KEY": "5HRoXrsbtZe92LnpnK8Z7c5ueJb1739UUEW7MjaXflRwuIvuI8YdJQQJ99BFACfhMk5XJ3w3AAAAACOGqfIH",
+      "CHAT_MODEL_DEPLOYMENT_NAME": "chat-gpt-demo"
+    }
+  }

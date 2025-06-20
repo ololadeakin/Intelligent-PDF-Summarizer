@@ -66,12 +66,43 @@ def analyze_pdf(blobName):
     return doc
 
 @my_app.activity_trigger(input_name='results')
-@my_app.generic_input_binding(arg_name="response", type="textCompletion", data_type=func.DataType.STRING, prompt="Can you explain what the following text is about? {results}", model = "%CHAT_MODEL_DEPLOYMENT_NAME%")
-def summarize_text(results, response: str):
+def summarize_text(results):
     logging.info(f"in summarize_text activity")
-    response_json = json.loads(response)
-    logging.info(response_json['content'])
-    return response_json
+
+    endpoint = os.environ["AZURE_OPENAI_ENDPOINT"]
+    api_key = os.environ["AZURE_OPENAI_KEY"]
+    deployment_name = os.environ["CHAT_MODEL_DEPLOYMENT_NAME"]
+    api_version = os.environ.get("AZURE_OPENAI_API_VERSION", "2025-01-01-preview")
+
+    url = f"{endpoint}/openai/deployments/{deployment_name}/chat/completions?api-version={api_version}"
+
+    headers = {
+        "Content-Type": "application/json",
+        "api-key": api_key
+    }
+
+    data = {
+        "messages": [
+            {
+                "role": "user",
+                "content": f"Can you explain what the following text is about? {results}"
+            }
+        ],
+        "max_tokens": 200,
+        "temperature": 0.7
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+
+    if response.status_code != 200:
+        logging.error(f"Azure OpenAI call failed: {response.status_code} - {response.text}")
+        raise Exception("Azure OpenAI API call failed")
+
+    response_json = response.json()
+    content = response_json["choices"][0]["message"]["content"]
+    logging.info(f"Summary: {content}")
+
+    return { "content": content }
 
 @my_app.activity_trigger(input_name='results')
 def write_doc(results):
